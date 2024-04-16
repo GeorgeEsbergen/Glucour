@@ -1,9 +1,10 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gradution_project/core/widgets/buttons.dart';
 
+import '../../../../core/util/constant.dart';
 import '../../../../core/widgets/rowas.dart';
-import 'payment/payment.dart';
+import '../../buttom_nav_bar.dart';
 
 class SubscriptionHome extends StatefulWidget {
   const SubscriptionHome({super.key});
@@ -125,14 +126,35 @@ class _PaymentCardState extends State<PaymentCard> {
                         color: Colors.grey)),
               ),
               const SizedBox(height: 70),
-              SmallBlueButton(
-                opacity: 0,
-                buttonName: 'Upgrade',
-                fn: () {
-                  Navigator.of(context).pushNamed(Payment.routeName);
-                },
-              ),
-              const SizedBox(height: 10),
+              AnimatedButton(
+                          text: 'Success Dialog',
+                          width: 200,
+                          height: 100,
+                          color: MainAssets.blue,
+                          pressEvent: () {
+                            AwesomeDialog(
+                              context: context,
+                              animType: AnimType.scale,
+                              headerAnimationLoop: false,
+                              dialogType: DialogType.success,
+                              btnOkColor: MainAssets.blue,
+                              showCloseIcon: true,
+                              title: 'Succesful Operation ',
+                              desc:
+                                  'Your Subscription has been successfully renewed',
+                              btnOkOnPress: () {
+                                debugPrint('OnClcik');
+                                Navigator.of(context)
+                                    .pushNamed(BottomNavBarScreen.routeName);
+                              },
+                              btnOkIcon: Icons.check_circle,
+                              onDismissCallback: (type) {
+                                debugPrint(
+                                    'Dialog Dissmiss from callback $type');
+                              },
+                            ).show();
+                          },
+                        ), const SizedBox(height: 10),
             ],
           ),
         ),
