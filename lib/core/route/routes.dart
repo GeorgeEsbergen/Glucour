@@ -15,6 +15,7 @@ import 'package:gradution_project/features/onboarding/page_view.dart';
 import 'package:gradution_project/features/auth/profileupdate.dart/qf2.dart';
 import 'package:gradution_project/features/start_screen/start_screen.dart';
 import 'package:gradution_project/fortest.dart';
+import '../../features/buttom_nav_bar/chat/select_chat/chat.dart';
 import '../../features/buttom_nav_bar/notes/add_note.dart';
 import '../../features/buttom_nav_bar/notes/notes.dart';
 import '../../features/buttom_nav_bar/notes/update_note.dart';
@@ -41,5 +42,6 @@ class Routes {
     AddNote.routeName: (context) => const AddNote(),
     Subscription.routeName: (context) => const Subscription(),
     Payment.routeName:(context) => const Payment(),
+ChatSelected.routeName:(context)=>ChatSelected()
   };
 }
