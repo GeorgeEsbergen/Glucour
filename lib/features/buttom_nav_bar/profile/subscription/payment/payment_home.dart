@@ -1,9 +1,10 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:gradution_project/core/util/constant.dart';
+import 'package:gradution_project/features/buttom_nav_bar/buttom_nav_bar.dart';
 
-import '../../../../../core/widgets/buttons.dart';
 import '../../../../../core/widgets/rowas.dart';
 
 class MySample extends StatefulWidget {
@@ -118,12 +119,36 @@ class MySampleState extends State<MySample> {
                           ),
                           onCreditCardModelChange: onCreditCardModelChange,
                         ),
-                        const SizedBox(height: 50),
-                        BlueButton(
-                          opacity: 0.5 ,
-                          buttonName: 'Pay',
-                          fn: () {},
-                        )
+                        const SizedBox(height: 100),
+                        AnimatedButton(
+                          text: 'Success Dialog',
+                          width: 200,
+                          height: 100,
+                          color: MainAssets.blue,
+                          pressEvent: () {
+                            AwesomeDialog(
+                              context: context,
+                              animType: AnimType.scale,
+                              headerAnimationLoop: false,
+                              dialogType: DialogType.success,
+                              btnOkColor: MainAssets.blue,
+                              showCloseIcon: true,
+                              title: 'Succesful Operation ',
+                              desc:
+                                  'Your Subscription has been successfully renewed',
+                              btnOkOnPress: () {
+                                debugPrint('OnClcik');
+                                Navigator.of(context)
+                                    .pushNamed(BottomNavBarScreen.routeName);
+                              },
+                              btnOkIcon: Icons.check_circle,
+                              onDismissCallback: (type) {
+                                debugPrint(
+                                    'Dialog Dissmiss from callback $type');
+                              },
+                            ).show();
+                          },
+                        ),
                       ],
                     ),
                   ],
