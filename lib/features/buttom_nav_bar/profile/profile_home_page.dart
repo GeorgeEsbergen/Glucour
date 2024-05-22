@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:gradution_project/core/util/constant.dart';
 import 'package:gradution_project/features/auth/login/loginpage.dart';
 import 'package:gradution_project/features/buttom_nav_bar/profile/faq/faq.dart';
@@ -26,25 +27,25 @@ class ProfileHomePage extends StatelessWidget {
             children: [
               SizedBox(
                 height: size.height / 2,
-                child: const Column(
+                child:  Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 50,
                       backgroundImage: AssetImage("assets/images/profile.jpg"),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
-                      "John Mac",
-                      style: TextStyle(
+                      "${Backend.fname.text} ${Backend.lname.text}  ",
+                      style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(height: 30),
-                    DetailsRow()
+                    const SizedBox(height: 30),
+                    const DetailsRow()
                   ],
                 ),
               ),
@@ -121,6 +122,8 @@ class ProfileHomePage extends StatelessWidget {
                                             backgroundColor: MainAssets.blue,
                                             foregroundColor: Colors.white),
                                         onPressed: () async {
+                                          GoogleSignIn googleSignIn = GoogleSignIn();
+                                          googleSignIn.disconnect();
                                           SharedPreferences prefs =
                                               await SharedPreferences
                                                   .getInstance();

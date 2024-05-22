@@ -1,5 +1,6 @@
 // ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
+import '../../core/util/constant.dart';
 
 class GloucoseData {
   final int x;
@@ -9,7 +10,7 @@ class GloucoseData {
 }
 
 List<GloucoseData> get glData {
-  final data = [100, 110, 130, 90, 30, 50, 190, 99, 110, 114, 154, 123];
+  final data =   ReportModel.lll; 
   return data
       .mapIndexed(
           (index, element) => GloucoseData(x: index.toInt(), y: element))

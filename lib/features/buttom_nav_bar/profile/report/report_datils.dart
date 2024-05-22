@@ -1,7 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../../../core/util/constant.dart';
 import '../../../../core/widgets/buttons.dart';
 import '../../../../core/widgets/rowas.dart';
 import '../../../../model/report_chart/cahrt_model.dart';
@@ -37,6 +37,12 @@ class _ReportDetailsState extends State<ReportDetails> {
         .replaceAll(':', '-');
     final name = "Screenshot$time";
     await ImageGallerySaver.saveImage(byte, name: name);
+  }
+  ReportModel reportModel=ReportModel();
+@override
+  void initState() {
+        reportModel.fetchDataAndPrint();
+    super.initState();
   }
 
   @override
@@ -114,4 +120,6 @@ class Rowl extends StatelessWidget {
       ],
     );
   }
+
+   
 }

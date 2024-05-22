@@ -20,6 +20,7 @@ class LoginScreenHome extends StatefulWidget {
 }
 
 class _LoginScreenHomeState extends State<LoginScreenHome> {
+  
   final loginkey = GlobalKey<FormState>();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
@@ -30,7 +31,9 @@ class _LoginScreenHomeState extends State<LoginScreenHome> {
 
   @override
   void initState() {
+    
     super.initState();
+    
     _initSharedPreferences();
   }
 
@@ -40,17 +43,18 @@ class _LoginScreenHomeState extends State<LoginScreenHome> {
     if (_token != null) {
       // Token exists, print it
       // ignore: avoid_print
-      print('Token from Shared Preferences: $_token');
+      print('Token from login: $_token');
     }
   }
 
   Future<void> _submit() async {
     final String emaill = email.text.trim();
     final String passwordd = password.text.trim();
+    
 
     try {
       final response = await http.post(
-        Uri.parse('https://red-thankful-cygnet.cyclic.app/login'),
+        Uri.parse('https://adc-8aar.onrender.com/login'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           'email': emaill,
@@ -62,8 +66,10 @@ class _LoginScreenHomeState extends State<LoginScreenHome> {
         setState(() {});
         // ignore: avoid_print
         print('Login successful');
+
         final responseData = jsonDecode(response.body);
         final token = responseData['token'];
+        
         // Save token to shared preferences
         await _prefs.setString('token', token);
         Navigator.pushReplacement(
@@ -153,7 +159,8 @@ class _LoginScreenHomeState extends State<LoginScreenHome> {
                     fn: () {
                       if (loginkey.currentState!.validate()) {
                         isLoading = true;
-                        setState(() {});
+                        setState(() {
+                        });
                         _submit();
                       }
                     },

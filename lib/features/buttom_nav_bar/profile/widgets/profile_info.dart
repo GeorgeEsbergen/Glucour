@@ -32,7 +32,7 @@ class RowOfEditProfile extends StatefulWidget {
   });
   final FocusNode focusNode;
   final String label;
-  String text;
+  TextEditingController text;
 
   @override
   State<RowOfEditProfile> createState() => _RowOfEditProfileState();
@@ -50,16 +50,16 @@ class _RowOfEditProfileState extends State<RowOfEditProfile> {
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text(widget.label), Text(widget.text)],
+                    children: [Text(widget.label), Text(widget.text.text)],
                   )
                 : ProfileEditTextField(
                     label: widget.label,
-                    onFieldSubmitted: (value) {
-                      setState(() {
-                        isEditable = false;
-                        widget.text = value;
-                      });
-                    },
+                    // onFieldSubmitted: (value) {
+                    //   setState(() {
+                    //     isEditable = false;
+                    //     widget.text = value as TextEditingController;
+                    //   });
+                    // },
                     initialValue: widget.text,
                     keyboard: TextInputType.text,
                     focusNode: widget.focusNode,
