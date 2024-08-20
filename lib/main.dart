@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,7 +16,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(DevicePreview(builder: (context) => const MainScreen()));
+  runApp(const MainScreen());
 }
 
 class MainScreen extends StatefulWidget {
@@ -44,53 +43,89 @@ class _MainScreenState extends State<MainScreen> {
 
       setState(() {
         _listenToFirebaseData();
+        
       });
     });
   }
 
+
   Future<void> _listenToFirebaseData() async {
     var random = Random();
-    int id=random.nextInt(100);
-    if (snti > 150) {
-      String title = "Glocouse is High";
-      String content = "Your Glocouse Level is $snti";
-      String hour = DateTime.now().hour.toString();
-      String minutes = DateTime.now().minute.toString().padLeft(2, '0');
-      LocalNotificationService.showBasicNotification(title, content , id.toString());
-      int response = await sqldata.insertData('''
+    int id = random.nextInt(100);
+    if (Backend.type.text == "type1") {
+      if (snti > 200) {
+        String title = "Glocouse is High";
+        String content = "Your Glocouse Level is $snti";
+        String hour = DateTime.now().hour.toString();
+        String minutes = DateTime.now().minute.toString().padLeft(2, '0');
+        LocalNotificationService.showBasicNotification(
+            title, content, id.toString());
+        // ignore: unused_local_variable
+        int response = await sqldata.insertData('''
             INSERT INTO notification (`title`,`content` ,`hour`,`minutes`) VALUES ("$title","$content","$hour","$minutes") 
             ''');
-      MainAssets.notificationIsOpend = false;
-      // ignore: avoid_print
-      print(MainAssets.notificationIsOpend);
-      // ignore: unnecessary_brace_in_string_interps, avoid_print
-      print("${response}");
+        MainAssets.notificationIsOpend = false;
+
+        if (snti > 250) {
+          //set the number here
+          await FlutterPhoneDirectCaller.callNumber(Backend.firstContact.text);
+        }
+      } else if (snti < 80) {
+        String title = "Glocouse is Low";
+        String content = "Your Glocouse Level is $snti";
+        String hour = DateTime.now().hour.toString();
+        String minutes = DateTime.now().minute.toString().padLeft(2, '0');
+        LocalNotificationService.showBasicNotification(
+            title, content, id.toString());
+        // ignore: unused_local_variable
+        int response = await sqldata.insertData('''
+            INSERT INTO notification (`title`,`content` ,`hour`,`minutes`) VALUES ("$title","$content","$hour","$minutes") 
+            ''');
+        MainAssets.notificationIsOpend = false;
+       
+        if (snti < 60) {
+          await FlutterPhoneDirectCaller.callNumber(Backend.firstContact.text);
+        }
+      } else {
+        MainAssets.notificationIsOpend = true;
+        
+      }
+    } else if (Backend.type.text == "type2") {
       if (snti > 450) {
-        const number = '01270498060'; //set the number here
-        await FlutterPhoneDirectCaller.callNumber(number);
-      }
-    }    else if (snti < 80) {
-      String title = "Glocouse is Low";
-      String content = "Your Glocouse Level is $snti";
-      String hour = DateTime.now().hour.toString();
-      String minutes = DateTime.now().minute.toString().padLeft(2, '0');
-      LocalNotificationService.showBasicNotification(title, content , id.toString());
-      int response = await sqldata.insertData('''
+        String title = "Glocouse is High";
+        String content = "Your Glocouse Level is $snti";
+        String hour = DateTime.now().hour.toString();
+        String minutes = DateTime.now().minute.toString().padLeft(2, '0');
+        LocalNotificationService.showBasicNotification(
+            title, content, id.toString());
+        // ignore: unused_local_variable
+        int response = await sqldata.insertData('''
             INSERT INTO notification (`title`,`content` ,`hour`,`minutes`) VALUES ("$title","$content","$hour","$minutes") 
             ''');
-      MainAssets.notificationIsOpend = false;
-      // ignore: avoid_print
-      print(MainAssets.notificationIsOpend);
-      // ignore: unnecessary_brace_in_string_interps, avoid_print
-      print("${response}");
-      if (snti < 60) {
-        const number = '01270498060'; //set the number here
-        await FlutterPhoneDirectCaller.callNumber(number);
+        MainAssets.notificationIsOpend = false;
+        
+        if (snti > 500) {
+          await FlutterPhoneDirectCaller.callNumber(Backend.firstContact.text);
+        }
+      } else if (snti < 80) {
+        String title = "Glocouse is Low";
+        String content = "Your Glocouse Level is $snti";
+        String hour = DateTime.now().hour.toString();
+        String minutes = DateTime.now().minute.toString().padLeft(2, '0');
+        LocalNotificationService.showBasicNotification(
+            title, content, id.toString());
+        // ignore: unused_local_variable
+        int response = await sqldata.insertData('''
+            INSERT INTO notification (`title`,`content` ,`hour`,`minutes`) VALUES ("$title","$content","$hour","$minutes") 
+            ''');
+        MainAssets.notificationIsOpend = false;
+        if (snti < 60) {
+          await FlutterPhoneDirectCaller.callNumber(Backend.firstContact.text);
+        }
+      } else {
+        MainAssets.notificationIsOpend = true;
+        
       }
-    } else {
-      MainAssets.notificationIsOpend = true;
-      // ignore: avoid_print
-      print(MainAssets.notificationIsOpend);
     }
   }
 
@@ -102,9 +137,6 @@ class _MainScreenState extends State<MainScreen> {
         Theme.of(context).textTheme,
       )),
       // ignore: deprecated_member_use
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       routes: Routes.allRoutes,
     );

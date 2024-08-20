@@ -58,16 +58,18 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     flex: 15,
                     child: SizedBox(
-                        height: 50,
-                        child: SendMessageTextField(
-                          hint: 'Ask Chatbot',
-                          controller: _userInput,
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return "This Field is empty";
-                            }
-                          },
-                        )),
+                      height: 70,
+                      child: SendMessageTextField(
+                        onSubmitted: (data) {},
+                        hint: 'Ask Chatbot',
+                        controller: _userInput,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return "This Field is empty";
+                          }
+                        },
+                      ),
+                    ),
                   ),
                   const Spacer(),
                   IconButton(
@@ -135,11 +137,16 @@ class Messages extends StatelessWidget {
                 fontSize: 16,
                 color: isUser ? Colors.white : Colors.black),
           ),
-          Text(
-            date,
-            style: TextStyle(
-              fontSize: 10,
-              color: isUser ? Colors.white : Colors.black,
+          const SizedBox(height: 5),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              date,
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontSize: 12,
+                color: isUser ? Colors.white : Colors.black,
+              ),
             ),
           )
         ],

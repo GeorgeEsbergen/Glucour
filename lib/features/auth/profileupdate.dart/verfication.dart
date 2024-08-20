@@ -1,20 +1,27 @@
 // ignore_for_file: overridden_fields
 import 'package:flutter/material.dart';
-import 'package:gradution_project/features/auth/profileupdate.dart/qf2.dart';
+import 'package:gradution_project/features/auth/profileupdate.dart/set_profile.dart';
 import '../../../core/widgets/buttons.dart';
 import '../../../core/widgets/rowas.dart';
 import '../../../core/widgets/textfield.dart';
 
-
-class VerifyPhoneNumber extends StatelessWidget {
-  VerifyPhoneNumber({super.key});
+class VerifyPhoneNumber extends StatefulWidget {
+  const VerifyPhoneNumber({super.key});
   static const String routeName = "verifyPhoneNumber";
+
+  @override
+  State<VerifyPhoneNumber> createState() => _VerifyPhoneNumberState();
+}
+
+class _VerifyPhoneNumberState extends State<VerifyPhoneNumber> {
   // ignore: annotate_overrides
-  final verification =GlobalKey<FormState>();
+  final verification = GlobalKey<FormState>();
+
   final TextEditingController phone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final email = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -35,7 +42,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 85),
-               Form(
+              Form(
                 key: verification,
                 child: Column(
                   children: [
@@ -43,10 +50,14 @@ class VerifyPhoneNumber extends StatelessWidget {
                       hint: '56234',
                       keyboard: TextInputType.text,
                       // ignore: body_might_complete_normally_nullable
-                      label: 'Enter verification code (5-digit)', controller: phone, validator:  (val ) {
-              if(val!.isEmpty)
-              // ignore: curly_braces_in_flow_control_structures
-              return "Code is empty"; },
+                      label: 'Enter verification code (5-digit)',
+                      controller: phone,
+                      validator: (val) {
+                        if (val!.isEmpty)
+                          // ignore: curly_braces_in_flow_control_structures
+                          return "Code is empty";
+                        return null;
+                      },
                     ),
                   ],
                 ),
@@ -57,7 +68,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                 child: BlueButton(
                   buttonName: "Verify",
                   fn: () {
-                    Navigator.pushNamed(context, Qf2.routeName);
+                    Navigator.pushNamed(context, SetProfile.routeName, arguments: email);
                   },
                 ),
               )

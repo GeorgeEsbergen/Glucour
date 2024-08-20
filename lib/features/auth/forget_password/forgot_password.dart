@@ -9,10 +9,10 @@ class ForgotPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Reset Password"),
+        title: const Text("Forget Password"),
         centerTitle: true,
       ),
-      body: ForgotPasswordBody(),
+      body: const ForgotPasswordBody(),
     );
   }
 }

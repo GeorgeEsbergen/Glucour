@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradution_project/core/util/constant.dart';
 import 'package:gradution_project/features/buttom_nav_bar/profile/profile_info/profile_info.dart';
+import '../../buttom_nav_bar/profile/report/report.dart';
 import '../notificatins/notification_page.dart';
 
 //***********   Sugar Level Row ***************/
@@ -33,9 +35,9 @@ class SugarLevel extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Sugar Level",
+            "Glucose Level",
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -50,7 +52,7 @@ class SugarLevel extends StatelessWidget {
               Text(
                 "6",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -58,7 +60,7 @@ class SugarLevel extends StatelessWidget {
               Text(
                 "Normal",
                 style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: Colors.green),
               ),
@@ -75,7 +77,7 @@ class SugarLevel extends StatelessWidget {
               Text(
                 "136",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -83,7 +85,7 @@ class SugarLevel extends StatelessWidget {
               Text(
                 "Danger",
                 style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: Colors.red),
               ),
@@ -106,11 +108,25 @@ class FirstRowOfHomePage extends StatefulWidget {
 
 class _FirstRowOfHomePageState extends State<FirstRowOfHomePage> {
   Backend backend = Backend();
-  
+
+  Future<void> fetchProfilePicUrl() async {
+    final userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(Backend.email.text)
+        .get(); // Use Backend.email.text for document ID
+    if (userDoc.exists) {
+      setState(() {
+        Backend.image = userDoc.data()?['profilePicUrl'];
+      });
+    } else {
+    }
+  }
+
   @override
   void initState() {
     backend.getToken();
     super.initState();
+    fetchProfilePicUrl();
   }
 
   @override
@@ -125,7 +141,8 @@ class _FirstRowOfHomePageState extends State<FirstRowOfHomePage> {
           child: CircleAvatar(
             radius: 22,
             backgroundColor: MainAssets.babyBlue,
-            backgroundImage: const AssetImage("assets/images/profile.jpg"),
+            backgroundImage: NetworkImage(Backend.image ??
+                'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
           ),
         ),
         Text(
@@ -170,6 +187,41 @@ class _FirstRowOfHomePageState extends State<FirstRowOfHomePage> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class ReportButton extends StatelessWidget {
+  const ReportButton({super.key, required this.size});
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(Report.routeName);
+      },
+      child: Container(
+          alignment: Alignment.center,
+          height: 50,
+          width: size.width / 1.2,
+          decoration: BoxDecoration(
+              color: MainAssets.babyBlue,
+              borderRadius: BorderRadius.circular(10)),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Report",
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
+              SizedBox(width: 10),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 18,
+              )
+            ],
+          )),
     );
   }
 }

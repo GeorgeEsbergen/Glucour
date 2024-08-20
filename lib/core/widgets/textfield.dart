@@ -103,10 +103,13 @@ class SendMessageTextField extends StatefulWidget {
     required this.hint,
     required this.controller,
     required this.validator,
+    required this.onSubmitted, this.suffixIcon,
   });
   final String hint;
   final TextEditingController controller;
   final String? Function(String?) validator;
+  final String? Function(String?) onSubmitted;
+  final Widget? suffixIcon;
 
   @override
   State<SendMessageTextField> createState() => _SendMessageTextFieldState();
@@ -116,10 +119,13 @@ class _SendMessageTextFieldState extends State<SendMessageTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: widget.onSubmitted,
       controller: widget.controller,
       validator: widget.validator,
       cursorColor: MainAssets.blue,
       keyboardType: TextInputType.text,
+      maxLines: 5,
+      minLines: 1,
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
@@ -131,7 +137,8 @@ class _SendMessageTextFieldState extends State<SendMessageTextField> {
             color: Colors.grey,
           ),
           hintText: widget.hint,
-          hintStyle: const TextStyle(color: Colors.grey),
+          hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
+          suffixIcon: widget.suffixIcon,
           suffixIconColor: Colors.grey),
     );
   }

@@ -19,10 +19,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   Backend backend = Backend();
 
+  
+
   @override
   void initState() {
     backend.getToken();
-
     getValidation().whenComplete(() async {
       Timer(
           const Duration(seconds: 2),
@@ -51,8 +52,6 @@ class _SplashScreenState extends State<SplashScreen> {
         finalToken = obtained;
       });
     }
-    // ignore: avoid_print
-    print(finalToken);
   }
 
   @override

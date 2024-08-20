@@ -31,9 +31,10 @@ class ProfileHomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const CircleAvatar(
+                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage("assets/images/profile.jpg"),
+                      backgroundImage: NetworkImage(Backend.image ??
+                'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
                     ),
                     const SizedBox(height: 20),
                     Text(
@@ -128,8 +129,7 @@ class ProfileHomePage extends StatelessWidget {
                                               await SharedPreferences
                                                   .getInstance();
                                           await prefs.remove('token');
-                                          // ignore: avoid_print
-                                          print('logout Successfully!');
+                                          
                                           // ignore: use_build_context_synchronously
                                           Navigator.of(context)
                                               .pushReplacementNamed(

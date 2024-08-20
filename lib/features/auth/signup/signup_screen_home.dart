@@ -1,5 +1,6 @@
-// ignore_for_file: avoid_print, prefer_const_constructors_in_immutables, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:gradution_project/core/util/constant.dart';
 import 'package:gradution_project/features/auth/widgets/forms.dart';
 import 'package:gradution_project/features/auth/widgets/google_facebook.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,38 +9,41 @@ import '../../../core/widgets/circle_indecator.dart';
 import '../../../core/widgets/rowas.dart';
 import '../../../core/widgets/texts.dart';
 import '../login/loginpage.dart';
-import '../profileupdate.dart/set_profile.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../profileupdate.dart/verfication.dart';
+
 class SignUpScreenHome extends StatefulWidget {
-  SignUpScreenHome({super.key});
+  const SignUpScreenHome({super.key});
 
   @override
   State<SignUpScreenHome> createState() => _SignUpScreenHomeState();
 }
 
 class _SignUpScreenHomeState extends State<SignUpScreenHome> {
+  Backend backend = Backend();
   final signUpKey = GlobalKey<FormState>();
 
   final TextEditingController name = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController phone = TextEditingController();
-  final TextEditingController pass = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
+  final TextEditingController pass = TextEditingController();
+  final TextEditingController passwordConfirm = TextEditingController();
+
   bool isLoading = false;
 
-  final TextEditingController passwordConfirm = TextEditingController();
   Future<void> _submit() async {
     final String namee = name.text.trim();
     final String phonee = phone.text.trim();
     final String emaill = email.text.trim();
     final String passwordd = pass.text.trim();
     final String passwordConfirmm = passwordConfirm.text.trim();
-
+    Backend.email.text = emaill;
     try {
       final response = await http.post(
-        Uri.parse('https://adc-8aar.onrender.com/signup'),
+        Uri.parse('https://adc-9v8m.onrender.com/signup'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           'name': namee,
@@ -53,8 +57,6 @@ class _SignUpScreenHomeState extends State<SignUpScreenHome> {
       if (response.statusCode == 200) {
         isLoading = false;
         setState(() {});
-        // Signup successful
-        print('Signup successful');
 
         // Get token from response
         final Map<String, dynamic> responseData = json.decode(response.body);
@@ -63,21 +65,17 @@ class _SignUpScreenHomeState extends State<SignUpScreenHome> {
         // Save token in SharedPreferences
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('token', token);
-        Navigator.pushNamed(context, SetProfile.routeName);
-        print(token);
-        // Navigate to the next screen or perform further actions
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamed(context, VerifyPhoneNumber.routeName,
+            arguments: Backend.email.text);
+
       } else {
         isLoading = false;
         setState(() {});
-        // Signup failed
-        print('Signup failed. Status code: ${response.statusCode}');
-        // Show error message or handle the failure accordingly
       }
     } catch (e) {
-      // Handle connection error
-      print('Failed to connect to the server: $e');
-      // Show error message to the user
       showDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Connection Error'),
