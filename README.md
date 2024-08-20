@@ -62,23 +62,60 @@ The Glucose Monitoring Application is a comprehensive health management tool des
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
-<!-- 
-if i need more than one image in the same Row:
-
 <p align="center">
   <img src="screenshots/1.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;">
-  <img src="screenshots/2.jpg" alt="App Screenshot 2" width="300">
+  <img src="screenshots/002.jpg" alt="App Screenshot 2" width="300">
 </p>
 
+<p align="center">
+  <img src="screenshots/2.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;">
+  <img src="screenshots/3.jpg" alt="App Screenshot 2" width="300">
+</p>
 
- -->
+<p align="center">
+  <img src="screenshots/4.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;">
+  <img src="screenshots/5.jpg" alt="App Screenshot 2" width="300">
+</p>
 
+<p align="center">
+  <img src="screenshots/6.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;">
+  <img src="screenshots/7.jpg" alt="App Screenshot 2" width="300">
+</p>
 
+<p align="center">
+  <img src="screenshots/8.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;">
+  <img src="screenshots/9.jpg" alt="App Screenshot 2" width="300">
+</p>
 
+<p align="center">
+  <img src="screenshots/10.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;">
+  <img src="screenshots/011.jpg" alt="App Screenshot 2" width="300">
+</p>
 
+<p align="center">
+  <img src="screenshots/11.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;">
+  <img src="screenshots/12.jpg" alt="App Screenshot 2" width="300">
+</p>
 
+<p align="center">
+  <img src="screenshots/13.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;">
+  <img src="screenshots/14.jpg" alt="App Screenshot 2" width="300">
+</p>
+
+<p align="center">
+  <img src="screenshots/15.jpg" alt="App Screenshot 1" width="300" style="margin-right: 20px;">
+  <img src="screenshots/16.jpg" alt="App Screenshot 2" width="300">
+</p>
+
+<p align="center">
+  <img src="screenshots/17.jpg" alt="App Screenshot 17" width="300" style="margin-right: 20px;">
+  <img src="screenshots/18.jpg" alt="App Screenshot 18" width="300">
+</p>
+
+<p align="center">
+  <img src="screenshots/19.jpg" alt="App Screenshot 19" width="300" style="margin-right: 20px;">
+  <img src="screenshots/20.jpg" alt="App Screenshot 20" width="300">
+</p>
 
 
 
@@ -93,9 +130,6 @@ To deploy this project run this command in terminal
 ## APK Path 
 build/app/outputs/flutter-apk/app-release.apk
 
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Contact
 For any questions or feedback, please reach out to:
